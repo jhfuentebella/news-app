@@ -17,12 +17,12 @@ from skllm.models.gpt.text2text.summarization import GPTSummarizer
 from skllm.models.gpt.classification.zero_shot import ZeroShotGPTClassifier
 from openai import OpenAI
 
-df = pd.read_csv("data/rappler-2024-cleaned-st.csv")
+st.set_page_config(layout='wide')
 
-api_key = open('openaiapikey.txt').read()
+df = pd.read_csv("rappler-2024-cleaned-st.csv")
+
+api_key = st.secrets["api_key"]
 SKLLMConfig.set_openai_key(api_key)
-
-api_key = open('openaiapikey.txt').read()
 client = OpenAI(api_key=api_key)
 
 def extract_keywords(text):
@@ -65,7 +65,7 @@ if my_page == 'About the data':
 
     st.header("Preview of the dataset")
 
-    df = pd.read_csv("data/rappler-2024-cleaned-st.csv")
+    df = pd.read_csv("rappler-2024-cleaned-st.csv")
     st.write(df.head())
 
     st.header("Quick stats from Rappler news articles")
@@ -86,7 +86,7 @@ if my_page == 'About the data':
 
 elif my_page == 'Interactive highlights':
     st.title('Interacting with the Rappler dataset')
-    df = pd.read_csv("data/rappler-2024-cleaned-st.csv")
+    df = pd.read_csv("rappler-2024-cleaned-st.csv")
 
     # Add text input for filter to specific keywords
     keywords = st.text_input(
@@ -152,7 +152,7 @@ elif my_page == 'Interactive highlights':
 
 elif my_page == 'News summarization':
     st.title('Summarizing Rappler articles')
-    df = pd.read_csv("data/rappler-2024-cleaned-st.csv").sort_values(
+    df = pd.read_csv("rappler-2024-cleaned-st.csv").sort_values(
         'date', ascending=False
     )
 
@@ -195,7 +195,7 @@ elif my_page == 'News summarization':
 
 elif my_page == 'Sentiment-based recommendations':
     st.title('Recommending articles based on predicted sentiments')
-    df = pd.read_csv("data/schools-sentiment-labeled.csv").sort_values(
+    df = pd.read_csv("schools-sentiment-labeled.csv").sort_values(
         'date', ascending=False
     )
     
@@ -234,7 +234,7 @@ elif my_page == 'Sentiment-based recommendations':
             
 elif my_page == 'Keyword extraction':
     st.title('Tagging articles with their most relevant keywords')
-    df = pd.read_csv("data/rappler-2024-cleaned.csv").sort_values(
+    df = pd.read_csv("rappler-2024-cleaned.csv").sort_values(
         'date', ascending=False
     )
     
